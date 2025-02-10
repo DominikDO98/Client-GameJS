@@ -1,7 +1,10 @@
+import { GamePage } from "./pages/gamePage";
+import "./styles/map.css";
+
 export function App() {
   return (
-    <>
-      <div></div>
-    </>
+    <div className="map">
+      <GamePage />
+    </div>
   );
 }
