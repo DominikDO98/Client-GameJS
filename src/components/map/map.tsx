@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useMovemant } from "../../hooks/useMovement";
 import "../../styles/map.css";
 import { IMapData } from "../../types/map";
-import { useMovement } from "../../hooks/useMovement";
 import { displayMap } from "../../utils/map.utils";
 import { Line } from "./line";
 
@@ -20,16 +20,15 @@ const recivedData: IMapData = {
     [8, 3],
     [4, 4],
   ],
+  enemy: [
+    [9, 9],
+    [8, 9],
+  ],
 };
 export function Map() {
-  const [map, setMap] = useState<IMapData | null>(recivedData);
+  const [map, setMap] = useState<IMapData>(recivedData);
 
-  useMovement(map, setMap);
-
-  //for debuging, delete later
-  useEffect(() => {
-    console.log(displayMap(map));
-  }, [map]);
+  useMovemant(map, setMap);
 
   if (!map) return <></>;
   return displayMap(map).map((array, index) => (

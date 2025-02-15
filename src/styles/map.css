@@ -23,6 +23,12 @@
   background-color: yellow;
 }
 
+.enemy {
+  width: 5em;
+  height: 5em;
+  background-color: black;
+}
+
 .map {
   display: flex;
 }
