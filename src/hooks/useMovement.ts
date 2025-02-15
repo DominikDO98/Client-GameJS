@@ -1,12 +1,14 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { movement } from "../constants/movment";
 import { TPosition, IMapData } from "../types/map";
 import { checkBorder, checkOverlap } from "../utils/map.utils";
+import { ScoreContext } from "../context/scoreContext";
 
 export const useMovement = (
   map: IMapData | null,
   setMap: React.Dispatch<React.SetStateAction<IMapData | null>>
 ) => {
+  const { setScore } = useContext(ScoreContext);
   const move = useCallback(
     (tempPlayer: TPosition) => {
       if (map) {
@@ -29,10 +31,11 @@ export const useMovement = (
           }),
           player: tempPlayer,
         };
+        setScore((curr) => curr + 1);
         setMap(tempMap);
       }
     },
-    [map, setMap]
+    [map, setMap, setScore]
   );
 
   const handleMovemant = useCallback(

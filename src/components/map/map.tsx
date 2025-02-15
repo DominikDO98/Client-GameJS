@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "../styles/map.css";
-import { IMapData } from "../types/map";
-import { useMovement } from "../hooks/useMovement";
-import { displayMap } from "../utils/map.utils";
+import "../../styles/map.css";
+import { IMapData } from "../../types/map";
+import { useMovement } from "../../hooks/useMovement";
+import { displayMap } from "../../utils/map.utils";
 import { Line } from "./line";
 
 const recivedData: IMapData = {
