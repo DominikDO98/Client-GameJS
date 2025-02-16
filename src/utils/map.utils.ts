@@ -17,19 +17,23 @@ export const displayMap = (map: IMapData | null) => {
     map.points.forEach((point) => {
       mapDisplay[point[0]][point[1]] = EMapObjects.point;
     });
+    map.enemy.forEach((enemy) => {
+      mapDisplay[enemy[0]][enemy[1]] = EMapObjects.enemy;
+    });
   }
   return mapDisplay;
 };
 
-export const checkBorder = (tempPlayer: TPosition) => {
+export const checkBorder = (position: TPosition) => {
   return (
-    tempPlayer[0] < 0 ||
-    tempPlayer[0] > 9 ||
-    tempPlayer[1] < 0 ||
-    tempPlayer[1] > 9
+    position[0] < 0 || position[0] > 9 || position[1] < 0 || position[1] > 9
   );
 };
 
-export const checkOverlap = (tempPlayer: TPosition, array: TPosition[]) => {
-  return JSON.stringify(array).includes(JSON.stringify(tempPlayer));
+export const checkOverlap = (position: TPosition, array: TPosition[]) => {
+  return JSON.stringify(array).includes(JSON.stringify(position));
+};
+
+export const generateMovement = (pos: TPosition, move: TPosition) => {
+  return [pos[0] + move[0], pos[1] + move[1]] as TPosition;
 };
