@@ -1,5 +1,5 @@
 import { TField } from "../../types/map";
-import { Field } from "./field";
+import { Field } from "./Field";
 
 export const Line = (props: { array: TField[] }) => {
   return props.array.map((field, index) => (

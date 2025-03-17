@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useRef } from "react";
 import { movement } from "../constants/movment";
-import { ScoreContext } from "../context/scoreContext";
+import { ScoreContext } from "../context/ScoreContext";
 import { IMapData, TPosition } from "../types/map";
 import {
   checkBorder,

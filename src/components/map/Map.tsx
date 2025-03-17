@@ -3,7 +3,7 @@ import { useMovemant } from "../../hooks/useMovement";
 import "../../styles/map.css";
 import { IMapData } from "../../types/map";
 import { displayMap } from "../../utils/map.utils";
-import { Line } from "./line";
+import { Line } from "./Line";
 
 const recivedData: IMapData = {
   player: [2, 1],
@@ -31,9 +31,13 @@ export function Map() {
   useMovemant(map, setMap);
 
   if (!map) return <></>;
-  return displayMap(map).map((array, index) => (
-    <div className="line" key={index}>
-      <Line array={array}></Line>
+  return (
+    <div className="map">
+      {displayMap(map).map((array, index) => (
+        <div className="line" key={index}>
+          <Line array={array}></Line>
+        </div>
+      ))}
     </div>
-  ));
+  );
 }
