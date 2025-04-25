@@ -1,5 +1,5 @@
 import { EMapObjects } from "../enums/map.enum";
-import { IMapData, IMapDisplay, TPosition } from "../types/map";
+import { IMapData, IMapDisplay } from "../types/map";
 
 export const displayMap = (map: IMapData | null) => {
   const mapDisplay: IMapDisplay = [];
@@ -22,18 +22,4 @@ export const displayMap = (map: IMapData | null) => {
     });
   }
   return mapDisplay;
-};
-
-export const checkBorder = (position: TPosition) => {
-  return (
-    position[0] < 0 || position[0] > 9 || position[1] < 0 || position[1] > 9
-  );
-};
-
-export const checkOverlap = (position: TPosition, array: TPosition[]) => {
-  return JSON.stringify(array).includes(JSON.stringify(position));
-};
-
-export const generateMovement = (pos: TPosition, move: TPosition) => {
-  return [pos[0] + move[0], pos[1] + move[1]] as TPosition;
 };

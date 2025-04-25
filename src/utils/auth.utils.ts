@@ -41,14 +41,3 @@ const getLogged = () => {
 export const goToLogin = () => {
   window.location.href = "http://localhost:3000/login";
 };
-export const sendRequest = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  e.preventDefault();
-  const response = await fetch("http://localhost:3000/user", {
-    method: "get",
-    redirect: "manual",
-    credentials: "include",
-    headers: { "access-control-allow-origin": "http://localhost:5173" },
-  });
-
-  console.log(await response.json());
-};
