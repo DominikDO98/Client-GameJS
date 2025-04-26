@@ -39,3 +39,5 @@ export class MovementUtils {
     }
   };
 }
+
+export const moveUtil = new MovementUtils();

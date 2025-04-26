@@ -1,11 +1,11 @@
 import { movement } from "../constants/movment";
 import { TPosition, IMapData } from "../types/map";
 import { INode } from "../types/pathFinding";
-import { MovementUtils } from "./movement.utils";
+import { moveUtil } from "./movement.utils";
 import { Searched } from "./searched.utils";
 
 export class PathFinding {
-  private _moveUtils = new MovementUtils();
+  private _moveUtils = moveUtil;
   private _startingPosition: TPosition;
   private _searched: Searched = new Searched();
   private _processed: TPosition[] = [];

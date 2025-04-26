@@ -4,13 +4,7 @@ import { GameStateContext } from "../context/GameStateContext";
 import { ScoreContext } from "../context/ScoreContext";
 import { EGameState } from "../enums/gameState.enum";
 import { IMapData, TPosition } from "../types/map";
-import {
-  checkBorder,
-  checkOverlap,
-  generateNewPosition,
-  handlePlayerMovemant,
-  moveAllEnemies,
-} from "../utils/movement.utils";
+import { moveUtil } from "../utils/movement.utils";
 
 export const useMovemant = (
   map: IMapData,
@@ -26,10 +20,10 @@ export const useMovemant = (
   const handleEnemyMovement = useCallback((): TPosition[] => {
     const tempEnemy = map.enemy.map((enemy, index) => {
       if (
-        checkBorder(enemyMovemant.current[index]) ||
-        checkOverlap(enemyMovemant.current[index], map.obstacles) ||
-        checkOverlap(enemyMovemant.current[index], map.enemy) ||
-        checkOverlap(enemyMovemant.current[index], map.points)
+        moveUtil.checkBorder(enemyMovemant.current[index]) ||
+        moveUtil.checkOverlap(enemyMovemant.current[index], map.obstacles) ||
+        moveUtil.checkOverlap(enemyMovemant.current[index], map.enemy) ||
+        moveUtil.checkOverlap(enemyMovemant.current[index], map.points)
       ) {
         return [enemy[0], enemy[1]] as TPosition;
       } else {
@@ -58,8 +52,11 @@ export const useMovemant = (
 
   const move = useCallback(() => {
     const tempEnemy: TPosition[] = handleEnemyMovement();
-    const tempPlayer: TPosition = handlePlayerMovemant(map, playerMovemant);
-    if (checkOverlap(tempPlayer, map.points)) {
+    const tempPlayer: TPosition = moveUtil.handlePlayerMovemant(
+      map,
+      playerMovemant
+    );
+    if (moveUtil.checkOverlap(tempPlayer, map.points)) {
       collectPoint(tempPlayer, tempEnemy);
     } else {
       const tempMap: IMapData = {
@@ -83,28 +80,28 @@ export const useMovemant = (
 
   const handleKey = useCallback((e: KeyboardEvent) => {
     if (e.key === "w" || e.key === "W") {
-      playerMovemant.current = generateNewPosition(
+      playerMovemant.current = moveUtil.generateNewPosition(
         playerMovemant.current,
         movement.up
       );
       document.removeEventListener("keypress", handleKey);
     }
     if (e.key === "s" || e.key === "S") {
-      playerMovemant.current = generateNewPosition(
+      playerMovemant.current = moveUtil.generateNewPosition(
         playerMovemant.current,
         movement.down
       );
       document.removeEventListener("keypress", handleKey);
     }
     if (e.key === "a" || e.key === "A") {
-      playerMovemant.current = generateNewPosition(
+      playerMovemant.current = moveUtil.generateNewPosition(
         playerMovemant.current,
         movement.left
       );
       document.removeEventListener("keypress", handleKey);
     }
     if (e.key === "d" || e.key === "D") {
-      playerMovemant.current = generateNewPosition(
+      playerMovemant.current = moveUtil.generateNewPosition(
         playerMovemant.current,
         movement.right
       );
@@ -149,7 +146,7 @@ export const useMovemant = (
       playerMovemant.current = [map.player[0], map.player[1]];
       enemyMovemant.current = [...map.enemy];
       document.addEventListener("keypress", handleKey);
-      if (frame.current === 1) moveAllEnemies(map, enemyMovemant);
+      if (frame.current === 1) moveUtil.moveAllEnemies(map, enemyMovemant);
       setTimeout(() => {
         move();
         switchFrame();
