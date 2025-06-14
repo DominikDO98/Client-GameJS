@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
-import { getUser, goToLogin } from "../../utils/auth.utils";
+import { getUser, goToLogin } from "../../communication/auth";
 import { Button } from "../common/Botton";
 import { User } from "./User";
 

@@ -112,7 +112,7 @@ export class PathFinding {
       !path ||
       this._moveUtils.checkOverlap(path[0], [
         ...enemyMovemant.current.slice(0, index),
-        ...this._map.enemy,
+        ...this._map.enemies,
       ])
     ) {
       return;
