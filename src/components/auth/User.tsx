@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Button } from "../common/Botton";
-import { logOut } from "../../utils/auth.utils";
+import { logOut } from "../../communication/auth";
 
 export const User = () => {
   const { user, setUser } = useContext(UserContext);

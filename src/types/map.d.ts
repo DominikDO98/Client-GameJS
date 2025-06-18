@@ -5,6 +5,13 @@ export interface IMapData {
   player: TPosition;
   obstacles: TPosition[];
   points: TPosition[];
-  enemy: TPosition[];
+  enemies: TPosition[];
 }
-export type IMapDisplay = IField[][];
+
+export type TMapDisplay = IField[][];
+
+export interface IDifficultySettings {
+  obstaclesDiff: number;
+  enemiesDiff: number;
+  pointsNumber: number;
+}

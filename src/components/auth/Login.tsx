@@ -1,4 +1,4 @@
-import { goToLogin, sendRequest } from "../../utils/auth.utils";
+import { goToLogin, sendRequest } from "../../communication/auth";
 
 export const Login = () => {
   return (
