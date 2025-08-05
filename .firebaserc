@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "supergamejs",
+    "supergamejs": "project-js"
+  }
+}
