@@ -1,28 +1,31 @@
 import { useCallback, useContext, useEffect, useRef } from "react";
+import { requestMap } from "../communication/map";
 import { movement } from "../constants/movment";
 import { GameStateContext } from "../context/GameStateContext";
 import { ScoreContext } from "../context/ScoreContext";
 import { EGameState } from "../enums/gameState.enum";
-import { IMapData, TPosition } from "../types/map";
+import { IDifficultySettings, IMapData, TPosition } from "../types/map";
+import { changeDifficulty } from "../utils/map.utils";
 import { moveUtil } from "../utils/movement.utils";
 
 export const useMovemant = (
   map: IMapData,
-  setMap: React.Dispatch<React.SetStateAction<IMapData>>
+  setMap: React.Dispatch<React.SetStateAction<IMapData | null>>,
+  diff: React.RefObject<IDifficultySettings>
 ) => {
   const playerMovemant = useRef<TPosition>([map.player[0], map.player[1]]);
-  const enemyMovemant = useRef<TPosition[]>([...map.enemy]);
+  const enemyMovemant = useRef<TPosition[]>([...map.enemies]);
   const { setScore } = useContext(ScoreContext);
   const { gameState, setGameState } = useContext(GameStateContext);
 
   const frame = useRef<1 | 2>(1);
 
   const handleEnemyMovement = useCallback((): TPosition[] => {
-    const tempEnemy = map.enemy.map((enemy, index) => {
+    const tempEnemy = map.enemies.map((enemy, index) => {
       if (
         moveUtil.checkBorder(enemyMovemant.current[index]) ||
         moveUtil.checkOverlap(enemyMovemant.current[index], map.obstacles) ||
-        moveUtil.checkOverlap(enemyMovemant.current[index], map.enemy) ||
+        moveUtil.checkOverlap(enemyMovemant.current[index], map.enemies) ||
         moveUtil.checkOverlap(enemyMovemant.current[index], map.points)
       ) {
         return [enemy[0], enemy[1]] as TPosition;
@@ -33,6 +36,25 @@ export const useMovemant = (
     return tempEnemy;
   }, [map]);
 
+  const handleWin = useCallback(() => {
+    if (!map.points[0]) {
+      setGameState(EGameState.Win);
+      diff.current = changeDifficulty(diff);
+      requestMap(diff.current, setMap);
+    }
+  }, [setGameState, setMap, diff, map]);
+
+  const handleLoss = useCallback(() => {
+    if (
+      map.enemies.filter((enemy) => {
+        return JSON.stringify(map.player) === JSON.stringify(enemy);
+      })[0]
+    ) {
+      playerMovemant.current = [map.player[0], map.player[1]];
+      setGameState(EGameState.Loss);
+    }
+  }, [map, setGameState]);
+
   const collectPoint = useCallback(
     (tempPlayer: TPosition, tempEnemy: TPosition[]) => {
       const tempMap: IMapData = {
@@ -41,13 +63,12 @@ export const useMovemant = (
           return JSON.stringify(point) !== JSON.stringify(tempPlayer);
         }),
         player: tempPlayer,
-        enemy: tempEnemy,
+        enemies: tempEnemy,
       };
       setScore((curr) => curr + 1);
       setMap(tempMap);
-      if (!tempMap.points[0]) setGameState(EGameState.Win);
     },
-    [map, setMap, setScore, setGameState]
+    [map, setMap, setScore]
   );
 
   const move = useCallback(() => {
@@ -62,21 +83,11 @@ export const useMovemant = (
       const tempMap: IMapData = {
         ...map,
         player: tempPlayer,
-        enemy: tempEnemy,
+        enemies: tempEnemy,
       };
       setMap(tempMap);
     }
   }, [map, setMap, collectPoint, handleEnemyMovement]);
-
-  const handleLoss = useCallback(() => {
-    if (
-      map.enemy.filter((enemy) => {
-        return JSON.stringify(map.player) === JSON.stringify(enemy);
-      })[0]
-    ) {
-      setGameState(EGameState.Loss);
-    }
-  }, [map, setGameState]);
 
   const handleKey = useCallback((e: KeyboardEvent) => {
     if (e.key === "w" || e.key === "W") {
@@ -121,6 +132,10 @@ export const useMovemant = (
             e.preventDefault();
             setGameState(EGameState.OnGoing);
             break;
+          case EGameState.Win:
+            e.preventDefault();
+            setGameState(EGameState.OnGoing);
+            break;
           default:
             break;
         }
@@ -144,18 +159,30 @@ export const useMovemant = (
     document.addEventListener("keypress", pause);
     if (gameState === EGameState.OnGoing) {
       playerMovemant.current = [map.player[0], map.player[1]];
-      enemyMovemant.current = [...map.enemy];
+      enemyMovemant.current = [...map.enemies];
       document.addEventListener("keypress", handleKey);
       if (frame.current === 1) moveUtil.moveAllEnemies(map, enemyMovemant);
       setTimeout(() => {
+        handleLoss();
+        handleWin();
         move();
         switchFrame();
-        handleLoss();
       }, 250);
     }
     return () => {
       document.removeEventListener("keypress", handleKey);
       document.removeEventListener("keypress", pause);
     };
-  }, [pause, map, handleKey, move, handleLoss, gameState, switchFrame]);
+  }, [
+    pause,
+    map,
+    setMap,
+    handleKey,
+    move,
+    handleWin,
+    handleLoss,
+    gameState,
+    setGameState,
+    switchFrame,
+  ]);
 };

@@ -2,12 +2,12 @@ import { movement } from "../constants/movment";
 import { TPosition, IMapData } from "../types/map";
 import { INode } from "../types/pathFinding";
 import { moveUtil } from "./movement.utils";
-import { Searched } from "./searched.utils";
+import { SearchedList } from "./searchedList.utils";
 
 export class PathFinding {
   private _moveUtils = moveUtil;
   private _startingPosition: TPosition;
-  private _searched: Searched = new Searched();
+  private _searched: SearchedList = new SearchedList();
   private _processed: TPosition[] = [];
   private _map: IMapData;
 
@@ -112,7 +112,7 @@ export class PathFinding {
       !path ||
       this._moveUtils.checkOverlap(path[0], [
         ...enemyMovemant.current.slice(0, index),
-        ...this._map.enemy,
+        ...this._map.enemies,
       ])
     ) {
       return;

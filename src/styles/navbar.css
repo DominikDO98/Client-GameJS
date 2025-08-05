@@ -1,19 +1,14 @@
 #account-container {
-  background-color: red;
-  width: 14rem;
+  width: 16.5rem;
   display: flex;
   justify-content: center;
+  background-color: var(--midgrey);
 }
 
 #right-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: yellow;
-}
-
-#userAvatar-container {
-  background-color: blue;
 }
 
 #username {
@@ -25,11 +20,11 @@
   width: 7rem;
   align-self: center;
   text-align: center;
-  background-color: rgb(99, 97, 97);
+  background-color: var(--midgrey);
 }
 
 .link:hover {
-  background-color: rgb(79, 78, 78);
+  background-color: var(--darkgrey);
 }
 
 .link-text {

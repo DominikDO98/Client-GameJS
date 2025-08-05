@@ -20,7 +20,7 @@ export class MovementUtils {
     map: IMapData,
     enemyMovemant: React.RefObject<TPosition[]>
   ) => {
-    map.enemy.forEach((enemy, index) => {
+    map.enemies.forEach((enemy, index) => {
       new PathFinding(enemy, map, index, enemyMovemant);
     });
   };
@@ -31,7 +31,8 @@ export class MovementUtils {
   ): TPosition => {
     if (
       this.checkBorder(playerMovemant.current) ||
-      this.checkOverlap(playerMovemant.current, map.obstacles)
+      this.checkOverlap(playerMovemant.current, map.obstacles) ||
+      this.checkOverlap(playerMovemant.current, map.enemies)
     ) {
       return [map.player[0], map.player[1]];
     } else {

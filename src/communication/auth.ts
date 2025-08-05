@@ -1,13 +1,14 @@
+import { API_URL, HEADERS } from "../constants/api";
 import { IGithubUserDTO } from "../types/githubUser";
 
 export const getUser = async (
   setUser: React.Dispatch<React.SetStateAction<null | IGithubUserDTO>>
 ) => {
-  if (getLogged()) {
-    const res = await fetch("http://localhost:3000/user", {
+  if (isLoggedIn()) {
+    const res = await fetch(`${API_URL}/user`, {
       method: "get",
       credentials: "include",
-      headers: { "access-control-allow-origin": "http://localhost:5173" },
+      headers: HEADERS,
     });
     await res.json().then((data: IGithubUserDTO) => {
       const user: IGithubUserDTO = {
@@ -21,16 +22,16 @@ export const getUser = async (
 export const logOut = async (
   setUser: React.Dispatch<React.SetStateAction<null | IGithubUserDTO>>
 ) => {
-  await fetch("http://localhost:3000/logout", {
+  await fetch(`${API_URL}/logout`, {
     method: "get",
     credentials: "include",
-    headers: { "access-control-allow-origin": "http://localhost:5173" },
+    headers: HEADERS,
   }).then(() => {
     setUser(null);
   });
 };
 
-const getLogged = () => {
+const isLoggedIn = () => {
   const loggedCookie = document.cookie
     .split(";")
     .filter((cookie) => cookie.split("=")[0] === "LoggedIn");
@@ -39,5 +40,5 @@ const getLogged = () => {
 };
 
 export const goToLogin = () => {
-  window.location.href = "http://localhost:3000/login";
+  window.location.href = `${API_URL}/login`;
 };

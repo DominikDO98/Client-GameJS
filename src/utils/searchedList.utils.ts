@@ -1,6 +1,6 @@
 import { INode } from "../types/pathFinding";
 
-export class Searched {
+export class SearchedList {
   private _nodes: INode[] = [];
 
   filter(callback: (node: INode) => boolean): INode[] {

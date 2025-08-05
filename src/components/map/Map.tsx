@@ -1,43 +1,40 @@
-import { useState } from "react";
-import { useMovemant } from "../../hooks/useMovement";
+import { useEffect, useRef, useState } from "react";
+import { requestMap } from "../../communication/map";
+import { DEFAULT_DIFFICULTY } from "../../constants/difficulty";
 import "../../styles/map.css";
-import { IMapData } from "../../types/map";
-import { displayMap } from "../../utils/map.utils";
-import { Line } from "./Line";
+import { IDifficultySettings, IMapData } from "../../types/map";
+import { Grid } from "./Grid";
 
-const recivedData: IMapData = {
-  player: [2, 1],
-  obstacles: [
-    [3, 3],
-    [3, 4],
-    [3, 5],
-    [4, 5],
-    [5, 5],
-    [6, 5],
-  ],
-  points: [
-    [9, 0],
-    [8, 3],
-    [4, 4],
-  ],
-  enemy: [
-    [9, 9],
-    [8, 9],
-  ],
-};
+// const recivedData: IMapData = {
+//   player: [2, 1],
+//   obstacles: [
+//     [3, 3],
+//     [3, 4],
+//     [3, 5],
+//     [4, 5],
+//     [5, 5],
+//     [6, 5],
+//   ],
+//   points: [
+//     [9, 0],
+//     [8, 3],
+//     [4, 4],
+//   ],
+//   enemies: [
+//     [9, 9],
+//     [8, 9],
+//   ],
+// };
 export function Map() {
-  const [map, setMap] = useState<IMapData>(recivedData);
-
-  useMovemant(map, setMap);
-
-  if (!map) return <></>;
-  return (
-    <div className="map">
-      {displayMap(map).map((array, index) => (
-        <div className="line" key={index}>
-          <Line array={array}></Line>
-        </div>
-      ))}
-    </div>
-  );
+  const [map, setMap] = useState<IMapData | null>(null);
+  const diff = useRef<IDifficultySettings>(DEFAULT_DIFFICULTY);
+  useEffect(() => {
+    try {
+      requestMap(diff.current, setMap);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [diff]);
+  if (!map) return <>Loading the map...</>;
+  return <Grid map={map} setMap={setMap} diff={diff}></Grid>;
 }
