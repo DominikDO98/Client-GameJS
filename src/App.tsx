@@ -6,6 +6,7 @@ import { GamePage } from "./pages/GamePage";
 import { HomePage } from "./pages/HomePage";
 import "./styles/map.css";
 import { IGithubUserDTO } from "./types/githubUser";
+import { LeaderboardPage } from "./pages/LeaderboardPage";
 
 export function App() {
   const [user, setUser] = useState<null | IGithubUserDTO>(null);
@@ -18,6 +19,7 @@ export function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/game" element={<GamePage />} />
+              <Route path="/leaderboard" element={<LeaderboardPage />} />
             </Routes>
           </main>
         </BrowserRouter>

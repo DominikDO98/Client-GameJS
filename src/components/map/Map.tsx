@@ -19,8 +19,7 @@ import { Grid } from "./Grid";
 //     [9, 0],
 //     [8, 3],
 //     [4, 4],
-//   ],
-//   enemy: [
+//   enemies: [
 //     [9, 9],
 //     [8, 9],
 //   ],
@@ -35,7 +34,6 @@ export function Map() {
       console.log(error);
     }
   }, [diff]);
-
-  if (!map) return <></>;
+  if (!map) return <>Loading the map...</>;
   return <Grid map={map} setMap={setMap} diff={diff}></Grid>;
 }

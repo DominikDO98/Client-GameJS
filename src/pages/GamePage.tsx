@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Map } from "../components/map/Map";
-import { Score } from "../components/score/Score";
+import { Score } from "../components/map/Score";
 import { ScoreContext } from "../context/ScoreContext";
 import { EGameState } from "../enums/gameState.enum";
 import { GameStateContext } from "../context/GameStateContext";

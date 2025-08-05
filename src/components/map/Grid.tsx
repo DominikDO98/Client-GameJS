@@ -6,12 +6,10 @@ import { Line } from "./Line";
 interface IProps {
   map: IMapData;
   setMap: React.Dispatch<React.SetStateAction<IMapData | null>>;
-  diff: IDifficultySettings;
-  setDiff: React.Dispatch<React.SetStateAction<IDifficultySettings>>;
+  diff: React.RefObject<IDifficultySettings>;
 }
 export const Grid = (props: IProps) => {
-  useMovemant(props.map, props.setMap, props.diff, props.setDiff);
-
+  useMovemant(props.map, props.setMap, props.diff);
   return (
     <div className="map">
       {displayMap(props.map).map((array, index) => (
