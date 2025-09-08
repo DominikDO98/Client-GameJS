@@ -1,5 +1,6 @@
-export const API_URL = "http://localhost:3000";
+export const API_URL = import.meta.env.API_URL;
+export const CLINET_ULR = import.meta.env.CLIENT_URL;
 export const HEADERS = {
-  "access-control-allow-origin": "http://localhost:5137",
+  "access-control-allow-origin": `${CLINET_ULR}`,
   "content-type": "application/json",
 };
