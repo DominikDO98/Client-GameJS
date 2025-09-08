@@ -1,0 +1,39 @@
+.field {
+  width: 5em;
+  height: 5em;
+  background-color: grey;
+  bottom: 5em;
+}
+
+.player {
+  width: 5em;
+  height: 5em;
+  background-color: green;
+}
+
+.obstacle {
+  width: 5em;
+  height: 5em;
+  background-color: red;
+}
+
+.point {
+  width: 5em;
+  height: 5em;
+  background-color: yellow;
+}
+
+.enemy {
+  width: 5em;
+  height: 5em;
+  background-color: black;
+}
+
+.map {
+  display: flex;
+}
+
+.line {
+  display: table-row;
+  position: relative;
+}

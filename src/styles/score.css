@@ -1,0 +1,9 @@
+.score {
+  background-color: antiquewhite;
+  text-align: center;
+  width: 5em;
+  height: 1em;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 0.3em;
+}

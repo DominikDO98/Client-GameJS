@@ -1,0 +1,35 @@
+#account-container {
+  width: 16.5rem;
+  display: flex;
+  justify-content: center;
+  background-color: var(--midgrey);
+}
+
+#right-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#username {
+  text-align: center;
+}
+
+.link {
+  height: 5rem;
+  width: 7rem;
+  align-self: center;
+  text-align: center;
+  background-color: var(--midgrey);
+}
+
+.link:hover {
+  background-color: var(--darkgrey);
+}
+
+.link-text {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  top: 1.5rem;
+}
