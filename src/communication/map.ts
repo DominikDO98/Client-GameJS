@@ -1,4 +1,4 @@
-import { API_URL } from "../constants/api";
+import { API_URL, HEADERS } from "../constants/api";
 import { IDifficultySettings, IMapData } from "../types/map";
 
 export const requestMap = async (
@@ -8,13 +8,12 @@ export const requestMap = async (
   let retries = 0;
   while (retries < 10) {
     try {
+      console.log(API_URL);
+
       const response = await fetch(`${API_URL}/map`, {
         method: "post",
         credentials: "include",
-        headers: {
-          "access-control-allow-origin": "http://localhost:5173",
-          "content-type": "application/json",
-        },
+        headers: HEADERS,
         body: JSON.stringify(diff),
       });
       if (!response.ok) {
