@@ -40,5 +40,6 @@ const isLoggedIn = () => {
 };
 
 export const goToLogin = () => {
+  console.log(API_URL);
   window.location.href = `${API_URL}/login`;
 };
