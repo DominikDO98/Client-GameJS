@@ -1,9 +1,5 @@
 {
   "projects": {
-    "default": "spartan-metric-468707-h1",
-    "project-id": "spartan-metric-468707-h1",
-    "project-js": "supergamejs"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "supergamejs",
+  }
 }

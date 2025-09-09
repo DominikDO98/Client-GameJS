@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          echo "API_URL=${{API_URL}}"  >> .env
-          echo "CLIENT_URL=${{CLIENT_URL}}" >> .env 
-          npm ci && npm run build
+          echo "VITE_API_URL=${{ secrets.API_URL }}"  > .env
+          echo "VITE_CLIENT_URL=${{ secrets.CLIENT_URL }}" >> .env 
+          npm install && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
