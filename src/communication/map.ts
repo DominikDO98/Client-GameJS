@@ -1,4 +1,4 @@
-import { API_URL } from "../constants/api";
+import { API_URL, CLINET_ULR } from "../constants/api";
 import { IDifficultySettings, IMapData } from "../types/map";
 
 export const requestMap = async (
@@ -12,7 +12,7 @@ export const requestMap = async (
         method: "post",
         credentials: "include",
         headers: {
-          "access-control-allow-origin": "http://localhost:5173",
+          "access-control-allow-origin": `${CLINET_ULR}`,
           "content-type": "application/json",
         },
         body: JSON.stringify(diff),

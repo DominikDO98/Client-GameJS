@@ -4,6 +4,8 @@ import { IGithubUserDTO } from "../types/githubUser";
 export const getUser = async (
   setUser: React.Dispatch<React.SetStateAction<null | IGithubUserDTO>>
 ) => {
+  console.log("logged:   ", isLoggedIn());
+
   if (isLoggedIn()) {
     console.log("fired getUser");
     const res = await fetch(`${API_URL}/user`, {
@@ -34,6 +36,7 @@ export const logOut = async (
 };
 
 const isLoggedIn = () => {
+  console.log("tried to find if logged in");
   const loggedCookie = document.cookie
     .split(";")
     .filter((cookie) => cookie.split("=")[0] === "LoggedIn");
