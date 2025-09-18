@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          echo "VITE_API_URL=${{ secrets.API_URL }}"  > .env
-          echo "VITE_CLIENT_URL=${{ secrets.CLIENT_URL }}" >> .env 
+          echo "VITE_API_URL=${{ secrets.API_URL }}"  > .env.production
+          echo "VITE_CLIENT_URL=${{ secrets.CLIENT_URL }}" >> .env.production
           npm install && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

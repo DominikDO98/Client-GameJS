@@ -1,11 +1,11 @@
-import { API_URL, CLINET_ULR, HEADERS } from "../constants/api";
+import { API_URL, CLIENT_URL, HEADERS } from "../constants/api";
 import { IGithubUserDTO } from "../types/githubUser";
 
 export const getUser = async (
   setUser: React.Dispatch<React.SetStateAction<null | IGithubUserDTO>>
 ) => {
   console.log("logged:   ", isLoggedIn());
-  console.log(API_URL, CLINET_ULR);
+  console.log(API_URL, CLIENT_URL);
   if (isLoggedIn()) {
     console.log("fired getUser");
     const res = await fetch(`${API_URL}/user`, {
@@ -45,6 +45,5 @@ const isLoggedIn = () => {
 };
 
 export const goToLogin = () => {
-  console.log(API_URL);
   window.location.href = `${API_URL}/login`;
 };
