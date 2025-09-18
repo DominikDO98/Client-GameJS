@@ -10,12 +10,16 @@ export const getUser = async (
       credentials: "include",
       headers: HEADERS,
     });
-    await res.json().then((data: IGithubUserDTO) => {
-      const user: IGithubUserDTO = {
-        ...data,
-      };
-      setUser(user);
-    });
+    await res
+      .json()
+      .then((data: IGithubUserDTO) => {
+        const user: IGithubUserDTO = {
+          ...data,
+        };
+        console.log(user);
+        setUser(user);
+      })
+      .catch((e) => console.log(e));
   }
 };
 
