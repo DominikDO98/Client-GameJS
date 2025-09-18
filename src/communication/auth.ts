@@ -5,21 +5,19 @@ export const getUser = async (
   setUser: React.Dispatch<React.SetStateAction<null | IGithubUserDTO>>
 ) => {
   if (isLoggedIn()) {
+    console.log("fired getUser");
     const res = await fetch(`${API_URL}/user`, {
       method: "get",
       credentials: "include",
       headers: HEADERS,
     });
-    await res
-      .json()
-      .then((data: IGithubUserDTO) => {
-        const user: IGithubUserDTO = {
-          ...data,
-        };
-        console.log(user);
-        setUser(user);
-      })
-      .catch((e) => console.log(e));
+    await res.json().then((data: IGithubUserDTO) => {
+      const user: IGithubUserDTO = {
+        ...data,
+      };
+      console.log(user);
+      setUser(user);
+    });
   }
 };
 
