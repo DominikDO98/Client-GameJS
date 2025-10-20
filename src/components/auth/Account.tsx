@@ -6,7 +6,6 @@ import { User } from "./User";
 
 export const Account = () => {
   const { user, setUser } = useContext(UserContext);
-  //
   useEffect(() => {
     getUser(setUser);
   }, [setUser]);
