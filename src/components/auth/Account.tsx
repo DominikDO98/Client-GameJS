@@ -8,8 +8,6 @@ export const Account = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    console.log("useEffect logging fired");
-
     getUser(setUser);
   }, [setUser]);
 

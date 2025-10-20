@@ -1,23 +1,19 @@
-import { API_URL, CLIENT_URL, HEADERS } from "../constants/api";
+import { API_URL, HEADERS } from "../constants/api";
 import { IGithubUserDTO } from "../types/githubUser";
 
 export const getUser = async (
   setUser: React.Dispatch<React.SetStateAction<null | IGithubUserDTO>>
 ) => {
-  console.log("logged:   ", isLoggedIn());
-  console.log(API_URL, CLIENT_URL);
   if (isLoggedIn()) {
-    console.log("fired getUser");
     const res = await fetch(`${API_URL}/user`, {
       method: "get",
-      credentials: "include",
       headers: HEADERS,
+      credentials: "include",
     });
     await res.json().then((data: IGithubUserDTO) => {
       const user: IGithubUserDTO = {
         ...data,
       };
-      console.log(user);
       setUser(user);
     });
   }
@@ -31,19 +27,22 @@ export const logOut = async (
     credentials: "include",
     headers: HEADERS,
   }).then(() => {
+    document.cookie.replace("Loggedin=true", "");
     setUser(null);
   });
 };
 
 const isLoggedIn = () => {
-  console.log("tried to find if logged in");
   const loggedCookie = document.cookie
     .split(";")
-    .filter((cookie) => cookie.split("=")[0] === "LoggedIn");
+    .filter((cookie) => cookie.split("=")[0] === "Loggedin");
   if (loggedCookie[0] && loggedCookie[0].split("=")[1] === "true") return true;
   else return false;
 };
 
 export const goToLogin = () => {
+  if (!isLoggedIn()) {
+    document.cookie = document.cookie + "Loggedin=true";
+  }
   window.location.href = `${API_URL}/login`;
 };
